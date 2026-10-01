@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gửi Phương Thùy</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+
+  <main id="app">
+    <section id="screen-envelope" class="screen active">
+      <div class="scatter-photos" id="scatterPhotos" aria-hidden="true">
+        <figure class="scatter-photo" style="--top:12%;--left:9%;--tilt:-9deg;--delay:0s">
+          <span class="ribbon-bow" aria-hidden="true"><span class="bow-loop left"></span><span class="bow-loop right"></span><span class="bow-knot"></span><span class="bow-tail left"></span><span class="bow-tail right"></span></span>
+          <img src="img/img1.jpg" alt="" />
+        </figure>
+        <figure class="scatter-photo" style="--top:58%;--left:84%;--tilt:8deg;--delay:.12s">
+          <span class="ribbon-bow" aria-hidden="true"><span class="bow-loop left"></span><span class="bow-loop right"></span><span class="bow-knot"></span><span class="bow-tail left"></span><span class="bow-tail right"></span></span>
+          <img src="img/img2.jpg" alt="" />
+        </figure>
+        <figure class="scatter-photo" style="--top:68%;--left:12%;--tilt:-5deg;--delay:.24s">
+          <span class="ribbon-bow" aria-hidden="true"><span class="bow-loop left"></span><span class="bow-loop right"></span><span class="bow-knot"></span><span class="bow-tail left"></span><span class="bow-tail right"></span></span>
+          <img src="img/img3.jpg" alt="" />
+        </figure>
+        <figure class="scatter-photo" style="--top:14%;--left:88%;--tilt:6deg;--delay:.36s">
+          <span class="ribbon-bow" aria-hidden="true"><span class="bow-loop left"></span><span class="bow-loop right"></span><span class="bow-knot"></span><span class="bow-tail left"></span><span class="bow-tail right"></span></span>
+          <img src="img/img4.jpg" alt="" />
+        </figure>
+      </div>
+
+      <div class="envelope-wrap" id="envelopeWrap">
+        <button class="envelope" id="envelope" aria-label="Chạm để mở thư">
+          <span class="envelope-body"></span>
+          <span class="envelope-flap-back"></span>
+          <span class="envelope-flap-front"></span>
+          <span class="seal" id="seal">PT</span>
+        </button>
+        <p class="hint" id="hint">Happy Birthday to You! Điều đặc biệt đang chờ. ^^</p>
+      </div>
+
+      <article class="letter" id="letter">
+        <button class="music-toggle" id="musicToggle" aria-label="Bật nhạc" aria-pressed="false">
+          <span class="music-bars"><i></i><i></i><i></i></span>
+        </button>
+
+        <div class="letter-inner">
+          <p class="letter-eyebrow">Sài Gòn, 02.10.<span class="year-mark">2026</span></p>
+          <h1 class="letter-title">Gửi Phương Thùy của anh,</h1>
+
+          <div class="letter-body">
+            <p>Có lẽ ông trời đã để mình gặp nhau vào những thời điểm thật đặc biệt. Anh thấy mình may mắn vì hôm nay vẫn có thể ở bên em, được trò chuyện, được lắng nghe và cùng em trải qua thêm một kỷ niệm đáng nhớ.</p>
+            <p>Khác với mọi năm, em đón sinh nhật cùng bè bạn và gia đình. Năm nay, là sinh nhật đầu tiên của em mà có cả anh bên cạnh em nữa. Anh chúc em tuổi mới luôn xinh đẹp, luôn vui vẻ và nở thật nhiều nụ cười, nhất là những lúc ở cạnh anh nhé. Ngoài kia vẫn còn rất nhiều điều thú vị đang chờ mình khám phá, và nổ lực để đạt được những mục tiêu mà mình mong muốn, hy vọng hai đứa sẽ cùng nhau tạo nên thật nhiều kỷ niệm và một thế giới nhỏ của riêng mình.</p>
+            <p>Thời gian một năm mình quen nhau, có lẽ vừa đủ để anh hiểu em một chút, nhưng cũng vừa đủ ngắn để anh vẫn muốn tìm hiểu em thêm thật nhiều.</p>
+          </div>
+
+          <div class="proposal" id="proposal">
+            <p class="proposal-lead">Và sau hôm nay, anh có một lời nhắn nhủ… mình cùng bắt đầu một hành trình mới, cùng nhau nhé ^^</p>
+            <p class="proposal-question">Em làm bạn gái anh nha? <span class="heart">🤍</span></p>
+
+            <div class="proposal-choices" id="proposalChoices">
+              <button class="choice-btn yes" data-answer="Có ạ! Em đồng ý làm bạn gái anh 🤍">Có ạ 🤍</button>
+              <button class="choice-btn note" data-answer="Khoan đã, em có lời nhắn cho anh trước đã…">Hmmm, em có lời nhắn cho anh trước…</button>
+            </div>
+
+            <div class="proposal-reply" id="proposalReply" hidden>
+              <p class="proposal-echo" id="proposalEcho"></p>
+              <label for="proposalNote">Nhắn gửi thêm cho anh</label>
+              <textarea id="proposalNote" rows="3" placeholder="Viết gì đó cho anh nè..."></textarea>
+              <button class="send-btn" id="sendReply">Gửi cho anh →</button>
+              <p class="send-hint" id="sendHint"></p>
+            </div>
+          </div>
+
+          <div class="letter-body">
+            <p>Chúc em tận hưởng ngày sinh nhật thật nhiều niềm vui và trọn vẹn cùng anh.</p>
+          </div>
+
+          <p class="letter-sign"><i>Your love,</i><br /><span>Văn Bảo</span></p>
+
+          <button class="next-btn" id="toInvite">Lịch trình tối nay của mình là →</button>
+        </div>
+      </article>
+    </section>
+
+    <section id="screen-invite" class="screen">
+      <div class="invite-card">
+        <button class="back-btn" id="toLetter">← Quay lại lá thư</button>
+        <p class="invite-eyebrow">Lời mời đặc biệt dành cho</p>
+        <h1 class="invite-title">Cá Voii</h1>
+        <p class="invite-sub">Sinh nhật của em · Thứ Sáu, 02.10.<span class="year-mark">2026</span></p>
+
+        <ol class="timeline">
+          <li class="stop">
+            <span class="stop-time">18:30</span>
+            <div class="stop-body">
+              <h3>Anh qua đón em</h3>
+              <p>Khi nào em sẵn sàng nhắn anh nha, hoặc anh đến thì anh sẽ gọi cho em, nhớ chú ý điện thoại nghen. Và anh cũng bật mí cho em, sẽ có một chút bất ngờ nho nhỏ đó, chắc là em sẽ vui nè.</p>
+            </div>
+          </li>
+
+          <li class="stop">
+            <span class="stop-time">18:45</span>
+            <div class="stop-body">
+              <h3>Mình sẽ ăn tối tại một trong</h3>
+              <div class="place-list">
+                <div>Mỳ Cay SEOUL</div>
+                <div>Lẩu gà Phúc Thanh</div>
+                <div>Buffet Cần Giờ</div>
+                <div>Dookki Bcons</div>
+              </div>
+            </div>
+          </li>
+
+          <li class="stop">
+            <span class="stop-time">Khoảng 20:00 · 20:30</span>
+            <div class="stop-body">
+              <h3>Uống coffee tại UniLounge <span class="small-note">(đối diện lẩu gà Phúc Thanh)</span></h3>
+              <p>Chắc chắn có rất rất nhiều điều muốn nói nhiều hơn nên mình đi nói chuyện thêm nha</p>
+            </div>
+          </li>
+
+          <li class="stop">
+            <span class="stop-time">Khoảng 20:30</span>
+            <div class="stop-body">
+              <h3>Anh có thêm một tiết mục, hoạt động bí mật nho nhỏ dành cho em nữa</h3>
+              <p>Vì để đảm bảo tính bất ngờ, anh xin tạm không mô tả rõ về nó nghen, nhưng chắc nó mất khoảng tầm 10, 15 phút thôi.</p>
+            </div>
+          </li>
+        </ol>
+
+        <p class="invite-footer">Em chỉ cần xuất hiện thật xinh — phần còn lại để anh lo. 🤍</p>
+      </div>
+    </section>
+  </main>
+
+  <iframe name="hidden_iframe" id="hiddenIframe" style="display:none" title="gửi phản hồi"></iframe>
+  <form id="gformProxy" action="https://docs.google.com/forms/d/e/1FAIpQLSe1iYRGX0c9RC9E5rZ9dVOZqRkM_6EVJzF5oR99vYA-ZmC-AQ/formResponse" method="POST" target="hidden_iframe" style="display:none">
+    <input type="text" name="entry.1883654587" id="gformAnswer" />
+    <input type="text" name="entry.1204279258" id="gformNote" />
+  </form>
+
+  <script src="script.js"></script>
+</body>
+</html>
