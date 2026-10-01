@@ -13,7 +13,7 @@ music.addEventListener('click',()=>{if(bgm.paused)bgm.play().then(()=>music.setA
 const choices=document.getElementById('proposalChoices'),reply=document.getElementById('proposalReply'),echo=document.getElementById('proposalEcho'),note=document.getElementById('proposalNote'),send=document.getElementById('sendReply'),sendHint=document.getElementById('sendHint');let answer='';
 choices.querySelectorAll('.choice-btn').forEach(btn=>btn.addEventListener('click',()=>{answer=btn.dataset.answer;echo.textContent=answer;reply.hidden=false;reply.scrollIntoView({behavior:'smooth',block:'center'});if(btn.classList.contains('yes')){const r=btn.getBoundingClientRect();confettiBurst(r.left+r.width/2,r.top+r.height/2,90)}}));
 const form=document.getElementById('gformProxy'),formAnswer=document.getElementById('gformAnswer'),formNote=document.getElementById('gformNote');
-send.addEventListener('click',()=>{formAnswer.value=answer||'(chưa chọn câu trả lời)';formNote.value=note.value.trim();form.submit();send.addEventListener('click', async () => {
+send.addEventListener('click', async () => {
   const data = new URLSearchParams();
 
   data.append(
