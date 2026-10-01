@@ -13,36 +13,16 @@ music.addEventListener('click',()=>{if(bgm.paused)bgm.play().then(()=>music.setA
 const choices=document.getElementById('proposalChoices'),reply=document.getElementById('proposalReply'),echo=document.getElementById('proposalEcho'),note=document.getElementById('proposalNote'),send=document.getElementById('sendReply'),sendHint=document.getElementById('sendHint');let answer='';
 choices.querySelectorAll('.choice-btn').forEach(btn=>btn.addEventListener('click',()=>{answer=btn.dataset.answer;echo.textContent=answer;reply.hidden=false;reply.scrollIntoView({behavior:'smooth',block:'center'});if(btn.classList.contains('yes')){const r=btn.getBoundingClientRect();confettiBurst(r.left+r.width/2,r.top+r.height/2,90)}}));
 const form=document.getElementById('gformProxy'),formAnswer=document.getElementById('gformAnswer'),formNote=document.getElementById('gformNote');
-send.addEventListener('click', async () => {
-  const data = new URLSearchParams();
+send.addEventListener('click', () => {
+  formAnswer.value = answer || '(chưa chọn câu trả lời)';
+  formNote.value = note.value.trim();
 
-  data.append(
-    'entry.1883654587',
-    answer || '(chưa chọn câu trả lời)'
-  );
+  form.submit();
 
-  try {
-    await fetch(
-      'https://docs.google.com/forms/d/e/1FAIpQLSe1iYRGX0c9RC9E5rZ9dVOZqRkM_6EVJzF5oR99vYA-ZmC-AQ/formResponse',
-      {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: data.toString()
-      }
-    );
-
-    send.disabled = true;
-    send.textContent = 'Đã gửi ✓';
-    sendHint.textContent =
-      'Đã gửi cho anh rồi nè 💌! Nếu anh đã bật thông báo email, anh sẽ nhận được lời nhắn của em.';
-  } catch (error) {
-    console.error(error);
-    sendHint.textContent =
-      'Có lỗi khi gửi phản hồi, em thử lại giúp anh nha 💌';
-  }
+  send.disabled = true;
+  send.textContent = 'Đã gửi ✓';
+  sendHint.textContent =
+    'Đã gửi cho anh rồi nè 💌! Nếu anh đã bật thông báo email, anh sẽ nhận được lời nhắn của em.';
 });
 const s1=document.getElementById('screen-envelope'),s2=document.getElementById('screen-invite');
 document.getElementById('toInvite').addEventListener('click',()=>{s1.classList.remove('active');s2.classList.add('active');confettiBurst(innerWidth/2,innerHeight*.3,70)});
