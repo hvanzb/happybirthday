@@ -15,9 +15,8 @@ choices.querySelectorAll('.choice-btn').forEach(btn=>btn.addEventListener('click
 const form=document.getElementById('gformProxy'),formAnswer=document.getElementById('gformAnswer'),formNote=document.getElementById('gformNote');
 send.addEventListener('click', () => {
   formAnswer.value = answer || '(chưa chọn câu trả lời)';
-  formNote.value = note.value.trim();
 
-  form.submit();
+  document.getElementById('gformSubmit').click();
 
   send.disabled = true;
   send.textContent = 'Đã gửi ✓';
