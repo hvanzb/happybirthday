@@ -12,14 +12,30 @@ envelope.addEventListener('click',()=>{if(opened)return;opened=true;envelope.cla
 music.addEventListener('click',()=>{if(bgm.paused)bgm.play().then(()=>music.setAttribute('aria-pressed','true')).catch(()=>{});else{bgm.pause();music.setAttribute('aria-pressed','false')}});
 const choices=document.getElementById('proposalChoices'),reply=document.getElementById('proposalReply'),echo=document.getElementById('proposalEcho'),note=document.getElementById('proposalNote'),send=document.getElementById('sendReply'),sendHint=document.getElementById('sendHint');let answer='';
 choices.querySelectorAll('.choice-btn').forEach(btn=>btn.addEventListener('click',()=>{answer=btn.dataset.answer;echo.textContent=answer;reply.hidden=false;reply.scrollIntoView({behavior:'smooth',block:'center'});if(btn.classList.contains('yes')){const r=btn.getBoundingClientRect();confettiBurst(r.left+r.width/2,r.top+r.height/2,90)}}));
-const form=document.getElementById('gformProxy'),formAnswer=document.getElementById('gformAnswer'),formNote=document.getElementById('gformNote');
-send.addEventListener('click', () => {
-  formAnswer.value = answer || '(chưa chọn câu trả lời)';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbyKRqfwUQLHvlf98wkQ6w-7balgcjlzmrewCGlRCgQ08_s3g9j9QUmuuGrqsbSbK9Y/exec';
 
-  document.getElementById('gformSubmit').click();
+send.addEventListener('click', () => {
+  const data = new URLSearchParams();
+
+  data.append(
+    'answer',
+    answer || '(chưa chọn câu trả lời)'
+  );
+
+  data.append(
+    'note',
+    note.value.trim()
+  );
+
+  fetch(WEB_APP_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: data
+  });
 
   send.disabled = true;
   send.textContent = 'Đã gửi ✓';
+
   sendHint.textContent =
     'Đã gửi cho anh rồi nè 💌! Nếu anh đã bật thông báo email, anh sẽ nhận được lời nhắn của em.';
 });
